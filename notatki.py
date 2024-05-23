@@ -1,10 +1,16 @@
-class User:
-    def __init__(self,name,surname,posts,location):
-        self.name=name
-        self.surname=surname
-        self.posts=posts
-        self.location=location
+import requests
+from bs4 import BeautifulSoup
 
-user_1=User(name='Marek', surname='Dybowski', posts:'3', location:"Warszawa")
-user_2=User(name='Tomek', surname='Dybowski', posts:'34', location:"Warszawa")
-print(user_2.name)
+def get_cordinates(miejscowosc:str) -> list[float,float]:
+    url:str=f"https://pl.wikipedia.org/wiki/{miejscowosc}"
+    response=requests.get(url)
+    response_html=BeautifulSoup(response.text,"html.parser")
+    latitude=float(response_html.select(".latitude")[1].text.replace(",", "."))
+    longitude=float(response_html.select(".longitude")[1].text.replace(",", "."))
+    return [latitude, longitude]
+
+
+
+miejscowosc=input("Podaj nazwę miejscowości: ")
+
+print(get_cordinates(miejscowosc))
