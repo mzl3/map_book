@@ -55,7 +55,7 @@ def remove_users_from_db(db_params)->None:
 
 def update_users(db_params)->None:
     cursor = db_params.cursor()
-    sl_update_query=f"UPDATE public.users SET name='{input('Imie')}', surname='{input('Nazwisko')}', posts='{int(input('ilosc postów'))}' WHERE id=4"
+    sl_update_query=f"UPDATE public.users SET name='{imie}', surname='{nazwiska}', posts='{int(post)}', location='{miejscowosc}', coords 'SRID=4326;POINT(21.0 52.23)' WHERE id=4"
     cursor.execute(sl_update_query)
     db_params.commit()
 
